@@ -39,7 +39,7 @@ def descompon(numero):
             numero //= f
     
     if numero > 2:
-        factors.append(n)
+        factors.append(numero)
     
     return tuple(factors)
 
@@ -70,7 +70,7 @@ def mcd(numero1, numero2):
     f_primos_1 = descompon(numero1)
     f_primos_2 = descompon(numero2)
     interseccion = set(f_primos_1).intersection(f_primos_2)
-    
+
     mcd = 1
     for factor in interseccion:
         mcd *= factor
