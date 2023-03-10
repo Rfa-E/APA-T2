@@ -9,7 +9,7 @@ def esPrimo(numero):
     >>> [ numero for numero in range(2, 50) if esPrimo(numero) ]
     [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
     """
-    for prueba in range(2, numero):
+    for prueba in range(2, int(numero**0.5)+1):
         if numero % prueba == 0:
             return False
     return True
@@ -26,6 +26,9 @@ def primos(numero):
 def descompon(numero):
     """
     Devuelve una tupla con la descomposición en factores primos de su argumento.
+
+    >>> descompon(36 * 175 * 143)
+    (2, 2, 3, 3, 5, 5, 7, 11, 13)
     """
     factors = []
     
@@ -46,20 +49,18 @@ def descompon(numero):
 def mcm(numero1, numero2):
     """
     Devuelve el mínimo común múltiplo de sus argumentos.
-    """
-    # Descomponer a y b en factores primos
-    f_primos_1 = descompon(numero1)
-    f_primos_2 = descompon(numero2)
 
-    # Combinar factores primos comunes y no comunes
+    >>> mcm(90, 14)
+    630
+    """
+    f_primos_1 = list(descompon(numero1))
+    f_primos_2 = list(descompon(numero2))
     f_primos = []
     for factor in f_primos_1:
         if factor in f_primos_2:
             f_primos_2.remove(factor)
         f_primos.append(factor)
     f_primos += f_primos_2
-
-    # Calcular el producto de los factores primos
     mcm = 1
     for factor in f_primos:
         mcm *= factor
@@ -67,15 +68,21 @@ def mcm(numero1, numero2):
     return mcm
 
 def mcd(numero1, numero2):
-    f_primos_1 = descompon(numero1)
-    f_primos_2 = descompon(numero2)
-    interseccion = set(f_primos_1).intersection(f_primos_2)
+    """
+    Devuelve el máximo común divisor de sus argumentos.
 
-    mcd = 1
-    for factor in interseccion:
-        mcd *= factor
+    >>> mcd(924, 780)
+    12
+    """
+    f_primos_n1 = list(descompon(numero1))
+    f_primos_n2 = list(descompon(numero2))
+    factoritzacion = f_primos_n1 & f_primos_n2  
+
+    mcd = 1 
+    for factor, exp in factoritzacion.items():
+        mcd *= (factor**exp)
+
     return mcd
-
 
 import doctest
 
