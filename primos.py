@@ -76,11 +76,15 @@ def mcd(numero1, numero2):
     """
     f_primos_n1 = list(descompon(numero1))
     f_primos_n2 = list(descompon(numero2))
-    factoritzacion = f_primos_n1 & f_primos_n2  
+    f_aux = list()
 
+    for factor in f_primos_n1:
+        if factor in f_primos_n2:
+            f_primos_n2.remove(factor)
+            f_aux.append(factor)
     mcd = 1 
-    for factor, exp in factoritzacion.items():
-        mcd *= (factor**exp)
+    for factor in f_aux:
+        mcd = mcd * factor
 
     return mcd
 
