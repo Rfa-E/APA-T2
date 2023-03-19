@@ -70,6 +70,7 @@ Inserte a continuación una captura de pantalla que muestre el resultado de ejec
 *verbosa*, de manera que se muestre el resultado de la ejecución de los tests unitarios.
 
 <img src="Imagen_1.PNG" align="center">
+<img src="Imagen_2.PNG" align="center">
 
 #### Código desarrollado
 
@@ -166,6 +167,49 @@ def mcd(numero1, numero2):
         mcd = mcd * factor
 
     return mcd
+
+def mcmN(*numeros):
+    """
+    Devuelve el mínimo común múltiplo de sus argumentos.    
+
+    >>> mcmN(42, 60, 70, 63)
+    1260
+    """
+    mcm = 1
+    f_contados = {}
+    for numero in numeros:
+        factores = descompon(numero)
+        for factor in set(factores):
+            count = factores.count(factor)
+            if factor not in f_contados or count > f_contados[factor]:
+                f_contados[factor] = count
+
+    for factor, count in f_contados.items():
+        mcm *= factor ** count
+
+    return mcm                
+
+def mcdN(*numeros):
+    """
+    Devuelve el máximo común divisor de sus argumentos.
+
+    >>> mcdN(840, 630, 1050, 1470)
+    210
+    """
+    mcd = 1
+
+    f_contados = {}
+    for numero in numeros:
+        factores = descompon(numero)
+        for factor in set(factores):
+            count = factores.count(factor)
+            if factor not in f_contados or count < f_contados[factor]:
+                f_contados[factor] = count
+
+    for factor, count in f_contados.items():
+        mcd *= factor ** count
+
+    return mcd 
 
 import doctest
 
